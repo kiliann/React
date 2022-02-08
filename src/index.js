@@ -21,7 +21,7 @@ import './index.css';
         );
     }
 }*/
-function calcularGanador(squares) {
+function calcularGanador(cuadrado) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
@@ -34,15 +34,15 @@ function calcularGanador(squares) {
     ];
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+        if (cuadrado[a] && cuadrado[a] === cuadrado[b] && cuadrado[a] === cuadrado[c]) {
+            return cuadrado[a];
         }
     }
     return null;
 }
-function Square(props) {
+function Cuadrado(props) {
     return (
-        <button className="square" onClick={props.onClick}>
+        <button className="cuadrado" onClick={props.onClick}>
             {props.value}
         </button>
     );
@@ -52,36 +52,36 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            squares: Array(9).fill(null),
+            cuadrado: Array(9).fill(null),
             turno: true,
         };
     }
     handleClick(i) {
-        const newsquares = this.state.squares.slice();
-        if (calcularGanador(newsquares) || newsquares[i]) {
+        const nuevoCuadrado = this.state.cuadrado.slice();
+        if (calcularGanador(nuevoCuadrado) || nuevoCuadrado[i]) {
             return;
         }
         //newsquares[i] = this.state.xIsNext ? 'X' : 'O';
         if(this.state.turno){
-            newsquares[i] = 'X';
+            nuevoCuadrado[i] = 'X';
         }else{
-            newsquares[i] = 'O';
+            nuevoCuadrado[i] = 'O';
         }
 
-        console.log(newsquares[i])
+        console.log(nuevoCuadrado[i])
         this.setState({
-            squares: newsquares,
+            cuadrado: nuevoCuadrado,
             turno: !this.state.turno,
         });
     }
     renderSquare(i) {
-        return <Square value={this.state.squares[i]}
+        return <Cuadrado value={this.state.cuadrado[i]}
         onClick={() => this.handleClick(i)}/>;
 
     }
 
     render() {
-        const winner = calcularGanador(this.state.squares);
+        const winner = calcularGanador(this.state.cuadrado);
         let status;
         if (winner) {
             status = 'Jugador Ganador : ' + winner + ' Perderdor '+(this.state.turno ? '1 = X' : '2 = O');
@@ -119,7 +119,7 @@ class Game extends React.Component {
         super(props);
         this.state = {
             history: [{
-                squares: Array(9).fill(null),
+                cuadrado: Array(9).fill(null),
             }],
             xIsNext: true,
         };
