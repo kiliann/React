@@ -49,13 +49,13 @@ function Cuadrado(props) {
 }
 
 class Board extends React.Component {
-    constructor(props) {
+   /* constructor(props) {
         super(props);
         this.state = {
             cuadrado: Array(9).fill(null),
             turno: true,
         };
-    }
+    }*/
 
     renderSquare(i) {
        /* return <Cuadrado value={this.state.cuadrado[i]}
@@ -67,19 +67,20 @@ class Board extends React.Component {
     }
 
     render() {
-        const winner = calcularGanador(this.state.cuadrado);
+        /*const winner = calcularGanador(this.state.cuadrado);
         let status;
         if (winner) {
             status = 'Jugador Ganador : ' + winner + ' Perderdor '+(this.state.turno ? '1 = X' : '2 = O');
         } else {
             status = 'Turno del Jugador: ' + (this.state.turno ? 'X' : 'O');
             status = 'Turno del Jugador: ' + (this.state.turno ? '1 = X' : '2 = O');
-        }
+        }*/
 
 
         return (
+           /* <div className="status">{status}</div>*/
             <div>
-                <div className="status">{status}</div>
+
                 <div className="board-row">
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
@@ -132,6 +133,7 @@ class Game extends React.Component {
             historia: historia.concat([{
                 cuadrado: nuevoCuadrado,
             }]),
+            stepNumber: historia.length,
             turno: !this.state.turno,
         });
 
@@ -143,6 +145,7 @@ class Game extends React.Component {
         });
     }
     render() {
+
         const historia = this.state.historia;
         const current = historia[this.state.stepNumber];
         const ganador = calcularGanador(current.cuadrado);
@@ -158,14 +161,16 @@ class Game extends React.Component {
         });
 
 
+
         let estado;
         if (ganador) {
-            estado = 'Ganador: ' + ganador;
+            estado = 'Jugador Ganador : ' + ganador + ' Perderdor jugador'+(this.state.turno ? '1 = X' : '2 = O');
         } else {
             estado = 'Siguiente Judador: ' + (this.state.turno ? 'X' : 'O');
         }
         return (
             <div className="game">
+
                 <div className="game-board">
                     <Board
                         cuadrado={current.cuadrado}
