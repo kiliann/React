@@ -114,7 +114,7 @@ class Game extends React.Component {
     handleClick(i) {
         const historia = this.state.historia.slice(0, this.state.stepNumber +1);
         const current = historia[historia.length - 1];
-        const nuevoCuadrado = this.state.cuadrado.slice();
+        const nuevoCuadrado = current.cuadrado.slice();
         if (calcularGanador(nuevoCuadrado) || nuevoCuadrado[i]) {
             return;
         }
